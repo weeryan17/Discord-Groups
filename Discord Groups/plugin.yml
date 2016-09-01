@@ -1,0 +1,4 @@
+name: DiscordGroups
+version: 1.0.0
+main: com.weeryan17.discord.Discord
+depend: [Vault]
