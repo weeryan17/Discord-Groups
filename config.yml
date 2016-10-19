@@ -4,3 +4,4 @@ Bot:
   token: ''
 #name of your main channel. just used to confirm the bot is connected
 Channel: ''
+IGNSync: false

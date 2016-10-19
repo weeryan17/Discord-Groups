@@ -2,6 +2,8 @@ package com.weeryan17.discord;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.UUID;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,8 +11,10 @@ import org.bukkit.entity.Player;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
+import sx.blah.discord.handle.impl.events.UserJoinEvent;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
@@ -34,8 +38,17 @@ public class DiscordEventHandler {
 		}
 		try {
 			mainChannel.sendMessage("Bot ready to do stuff!");
-		} catch (RateLimitException | MissingPermissionsException | DiscordException e1) {
+		} catch (MissingPermissionsException e1) {
 			// TODO Auto-generated catch block
+			instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
+			e1.printStackTrace();
+		} catch (DiscordException e1) {
+			// TODO Auto-generated catch block
+			instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+			e1.printStackTrace();
+		} catch (RateLimitException e1) {
+			// TODO Auto-generated catch block
+			instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
 			e1.printStackTrace();
 		}
 		Updater update = new Updater(instance);
@@ -64,8 +77,17 @@ public class DiscordEventHandler {
 				if(p!=null){
 					try {
 						message.getChannel().sendMessage(message.getAuthor().getName() + " A message has been sent to you in minecraft with the id you need to link discord and minecraft");
-					} catch (RateLimitException | MissingPermissionsException | DiscordException e1) {
+					} catch (MissingPermissionsException e1) {
 						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
+						e1.printStackTrace();
+					} catch (DiscordException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+						e1.printStackTrace();
+					} catch (RateLimitException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
 						e1.printStackTrace();
 					}
 					p.sendMessage(ChatColor.YELLOW + "Your discord registration id is " + ids.size() + 1);
@@ -73,8 +95,17 @@ public class DiscordEventHandler {
 				} else {
 					try {
 						message.getChannel().sendMessage(message.getAuthor().getName() + " The user name you specifyed is invalid. Make sure you're loged onto the server and your user name is correct");
-					} catch (RateLimitException | MissingPermissionsException | DiscordException e1) {
+					} catch (MissingPermissionsException e1) {
 						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
+						e1.printStackTrace();
+					} catch (DiscordException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+						e1.printStackTrace();
+					} catch (RateLimitException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
 						e1.printStackTrace();
 					}
 				}
@@ -88,8 +119,17 @@ public class DiscordEventHandler {
 				if(id <= -1){
 					try {
 						message.getChannel().sendMessage(message.getAuthor().getName() + " You used an invalid number");
-					} catch (RateLimitException | MissingPermissionsException | DiscordException e1) {
+					} catch (MissingPermissionsException e1) {
 						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
+						e1.printStackTrace();
+					} catch (DiscordException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+						e1.printStackTrace();
+					} catch (RateLimitException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
 						e1.printStackTrace();
 					}
 				} else {
@@ -101,15 +141,33 @@ public class DiscordEventHandler {
 						ids.remove(id);
 						try {
 							message.getChannel().sendMessage(message.getAuthor().getName() + " You minecraft and discord are now linked on this server");
-						} catch (RateLimitException | MissingPermissionsException | DiscordException e1) {
+						} catch (MissingPermissionsException e1) {
 							// TODO Auto-generated catch block
+							instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
+							e1.printStackTrace();
+						} catch (DiscordException e1) {
+							// TODO Auto-generated catch block
+							instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+							e1.printStackTrace();
+						} catch (RateLimitException e1) {
+							// TODO Auto-generated catch block
+							instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
 							e1.printStackTrace();
 						}
 					} else {
 						try {
 							message.getChannel().sendMessage(message.getAuthor().getName() + " You used an invalid number");
-						} catch (RateLimitException | MissingPermissionsException | DiscordException e1) {
+						} catch (MissingPermissionsException e1) {
 							// TODO Auto-generated catch block
+							instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
+							e1.printStackTrace();
+						} catch (DiscordException e1) {
+							// TODO Auto-generated catch block
+							instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+							e1.printStackTrace();
+						} catch (RateLimitException e1) {
+							// TODO Auto-generated catch block
+							instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
 							e1.printStackTrace();
 						}
 					}
@@ -117,9 +175,45 @@ public class DiscordEventHandler {
 			} else {
 				try {
 					message.getChannel().sendMessage(message.getAuthor().getName() + " Your usage of the register command is incorect");
-				} catch (RateLimitException | MissingPermissionsException | DiscordException e1) {
+				} catch (MissingPermissionsException e1) {
 					// TODO Auto-generated catch block
+					instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
 					e1.printStackTrace();
+				} catch (DiscordException e1) {
+					// TODO Auto-generated catch block
+					instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+					e1.printStackTrace();
+				} catch (RateLimitException e1) {
+					// TODO Auto-generated catch block
+					instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@EventSubscriber
+	public void onJoin(UserJoinEvent e){
+		if(instance.getMainConfig().getBoolean("IGNSync")){
+			IUser user = e.getUser();
+			if(instance.getLinkedConfig().contains(user.getID())){
+				Player p = Bukkit.getPlayer((UUID) instance.getLinkedConfig().get(user.getID()));
+				if(!p.getName().equals(user.getName())){
+					try {
+						Discord.client.getGuilds().get(0).setUserNickname(user, p.getName());
+					} catch (MissingPermissionsException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot has invalid permisions");
+						e1.printStackTrace();
+					} catch (DiscordException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Plugin got a disscord exception");
+						e1.printStackTrace();
+					} catch (RateLimitException e1) {
+						// TODO Auto-generated catch block
+						instance.getLogger().log(Level.SEVERE, "Bot exceded server rate limit");
+						e1.printStackTrace();
+					}
 				}
 			}
 		}
