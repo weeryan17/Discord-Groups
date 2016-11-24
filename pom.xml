@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>DiscordGroups</groupId>
   <artifactId>DiscordGroups</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.2</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -65,13 +65,13 @@
     <dependency>
            <groupId>org.spigotmc</groupId>
            <artifactId>spigot-api</artifactId>
-           <version>1.10.2-R0.1-SNAPSHOT</version>
+           <version>1.11-R0.1-SNAPSHOT</version>
            <scope>provided</scope>
     </dependency>
     <dependency>
     	<groupId>com.github.austinv11</groupId>
     	<artifactId>Discord4j</artifactId>
-    	<version>2.6.1</version>
+    	<version>websocket-rewrite-SNAPSHOT</version>
     	<classifier>shaded</classifier>
     </dependency>
     <dependency>

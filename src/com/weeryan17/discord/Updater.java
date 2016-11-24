@@ -18,6 +18,7 @@ public class Updater {
 	public Updater(Discord instance){
 		this.instance = instance;
 	}
+	
 	public void updatePlayer(Player p){
 		String clientId = instance.getLinkedConfig().getString("Players." + p.getUniqueId().toString());
 		IUser user = Discord.client.getUserByID(clientId);
@@ -33,6 +34,7 @@ public class Updater {
 			e.printStackTrace();
 		}
 	}
+	
 	public void updateRoles(){
 		String[] groups = Discord.permission.getGroups();
 		List<IGuild> guilds = Discord.client.getGuilds();

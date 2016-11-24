@@ -8,6 +8,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.milkbowl.vault.permission.Permission;
+import sx.blah.discord.Discord4J;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.util.DiscordException;
@@ -22,6 +23,7 @@ public class Discord extends JavaPlugin {
 	public static Permission permission = null;
 	
 	public void onEnable(){
+		Discord4J.disableAudio();
 		api = new ConfigApi(this);
 		RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
         if (permissionProvider != null) {
