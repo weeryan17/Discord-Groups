@@ -22,16 +22,18 @@ public class Updater {
 	public void updatePlayer(Player p){
 		String clientId = instance.getLinkedConfig().getString("Players." + p.getUniqueId().toString());
 		IUser user = Discord.client.getUserByID(clientId);
-		String[] groups = Discord.permission.getPlayerGroups(p);
-		List<IGuild> guilds = Discord.client.getGuilds();
-		IGuild guild = guilds.get(0);
-		List<IRole> role = guild.getRolesByName(groups[0]);
-		IRole[] roles = {role.get(0)}; 
-		try {
-			guild.editUserRoles(user, roles);
-		} catch (RateLimitException | MissingPermissionsException | DiscordException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(user != null){
+			String[] groups = Discord.permission.getPlayerGroups(p);
+			List<IGuild> guilds = Discord.client.getGuilds();
+			IGuild guild = guilds.get(0);
+			List<IRole> role = guild.getRolesByName(groups[0]);
+			IRole[] roles = {role.get(0)};
+			try {
+				guild.editUserRoles(user, roles);
+			} catch (RateLimitException | MissingPermissionsException | DiscordException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
