@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.Status;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
@@ -25,6 +26,8 @@ public class Updater {
 		if(user != null){
 			String[] groups = Discord.permission.getPlayerGroups(p);
 			List<IGuild> guilds = Discord.client.getGuilds();
+			Status stat = Status.game("Updateing players. currently on: " + p.getName());
+			Discord.client.changeStatus(stat);
 			IGuild guild = guilds.get(0);
 			List<IRole> role = guild.getRolesByName(groups[0]);
 			IRole[] roles = {role.get(0)};

@@ -14,6 +14,7 @@ import sx.blah.discord.handle.impl.events.UserJoinEvent;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.Status;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
@@ -28,25 +29,26 @@ public class DiscordEventHandler {
 	@EventSubscriber
 	public void onReadyEvent(ReadyEvent e) throws MissingPermissionsException, DiscordException, RateLimitException {
 		instance.getLogger().info("bot ready");
-		Collection<IChannel> channels = Discord.client.getChannels(true);
-		IChannel mainChannel = null;
+		Collection<IChannel> channels = Discord.client.getChannels();
+		IChannel mainChannel;
 		for(IChannel channel : channels){
+			instance.getLogger().info("Current channel checking: " + channel.getName());
 			if(channel.getName().equals(instance.getMainConfig().getString("Channel"))){
 				mainChannel = channel;
+				mainChannel.sendMessage("Bot ready to do stuff!");
 			}
 			
 		}
-		mainChannel.sendMessage("Bot ready to do stuff!");
 		Updater update = new Updater(instance);
 		update.updateRoles();
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(instance, new Runnable(){
 			@Override
 			public void run() {
+				instance.getLogger().info("Updating server roles");
 				for(Player p : Bukkit.getServer().getOnlinePlayers()){
 					update.updatePlayer(p);
-					
 				}
-				
+				Discord.client.changeStatus(Status.empty());
 			}
 			
 		}, 0L, 1000L);
